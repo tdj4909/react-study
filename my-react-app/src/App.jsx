@@ -1,18 +1,33 @@
-import Hello from "./Hello";
-import Counter from "./Counter";
-import UserName from "./UserName";
-import Timer from "./Timer";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function App(){
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+    axios
+      .get("https://jsonplaceholder.typicode.com/posts")
+      .then(response => {
+        setData(response.data);
+        setLoading(false);
+      })
+      .catch(error => console.error("API 호출 오류:", error));
+  }, []);
+
+  if (loading) {
+    return <div>로딩 중...</div>;
+  }
+
   return (
     <div>
-      <Hello /> {/* Hello 컴포넌트 사용 */}
-      <Hello name="철수" />
-      <Hello name="영희" />
-      <Hello name="민수" />
-      <Counter />
-      <UserName />
-      <Timer />
+      <h1>API에서 받은 데이터</h1>
+      <ul>
+        {data.map(post => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
     </div>
   );
 }
