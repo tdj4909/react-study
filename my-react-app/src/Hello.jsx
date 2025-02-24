@@ -1,5 +1,5 @@
-function Hello(){
-    return <h1>안녕하세요, 리액트!</h1>
+function Hello(props){
+    return <h1>안녕하세요, {props.name}!</h1>
 }
 
 export default Hello;
