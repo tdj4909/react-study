@@ -1,4 +1,6 @@
 import Hello from "./Hello";
+import Counter from "./Counter";
+import UserName from "./UserName";
 
 function App(){
   return (
@@ -7,6 +9,8 @@ function App(){
       <Hello name="철수" />
       <Hello name="영희" />
       <Hello name="민수" />
+      <Counter />
+      <UserName />
     </div>
   );
 }
