@@ -1,6 +1,7 @@
 import Hello from "./Hello";
 import Counter from "./Counter";
 import UserName from "./UserName";
+import Timer from "./Timer";
 
 function App(){
   return (
@@ -11,6 +12,7 @@ function App(){
       <Hello name="민수" />
       <Counter />
       <UserName />
+      <Timer />
     </div>
   );
 }

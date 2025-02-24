@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Counter() {
     const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        if (count > 0) {
+            console.log(`카운트가 ${count}로 변경되었습니다!`);
+        }
+    }, [count]);
 
     const handleClick = () => {
         setCount(count + 1);
