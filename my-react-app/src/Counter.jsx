@@ -1,22 +1,16 @@
-import { useEffect, useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { increment, decrement } from "./Store";
 
 function Counter() {
-    const [count, setCount] = useState(0);
-
-    useEffect(() => {
-        if (count > 0) {
-            console.log(`카운트가 ${count}로 변경되었습니다!`);
-        }
-    }, [count]);
-
-    const handleClick = () => {
-        setCount(count + 1);
-    };
+    const count = useSelector((state) => state.counter.value);
+    const dispatch = useDispatch();
 
     return (
         <div>
-            <p>현재 카운트: {count}</p>
-            <button onClick={handleClick}>+1 증가</button>
+            <h1>카운드: {count}</h1>
+            <button onClick={() => dispatch(increment())}>+1</button>
+            <button onClick={() => dispatch(decrement())}>-1</button>
         </div>
     );
 }

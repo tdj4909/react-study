@@ -1,17 +1,12 @@
 import React, {useState} from "react";
-import { UserContext } from "./UserContext";
-import Header from "./Header";
-import Profile from "./Profile";
+import Counter from "./Counter";
 
 function App(){
-  const [username, setUsername] = useState("홍길동");
-
   return (
-
-    <UserContext.Provider value={username}>
-      <Header />
-      <Profile />
-    </UserContext.Provider>
+    <div>
+      <h1>Redux 카운터 예제</h1>
+      <Counter />
+    </div>
   );
 }
 
