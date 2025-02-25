@@ -1,34 +1,39 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    value: 0,
+    data: [],
+    loading: false,
+    error: null,
 };
 
 const counterSlice = createSlice({
     name: "counter",
     initialState,
     reducers: {
-        increment: (state) => {
-            state.value += 1;
+        setLoading: (state) => {
+            state.loading = true;
         },
-        decrement: (state) => {
-            state.value -= 1;
+        setData: (state, action) => {
+            state.data = action.payload;
+            state.loading = false;
         },
-        setCounter: (state, action) => {
-            state.value = action.payload;
+        setError: (state, action) => {
+            state.error = action.payload;
+            state.loading = false;
         },
     },
 });
 
 export const fetchCounter = () => async (dispatch) => {
+    dispatch(setLoading());
     try {
-        const response = await fetch("https://api.example.com/counter");
+        const response = await fetch("https://jsonplaceholder.typicode.com/posts");
         const data = await response.json();
-        dispatch(setCounter(data.value));
+        dispatch(setData(data));
     } catch (error) {
-        console.error("API 호출 실패: ", error);
+        dispatch(setError(error.message));
     }
 };
 
-export const {increment, decrement, setCounter} = counterSlice.actions;
+export const { setLoading, setData, setError} = counterSlice.actions;
 export default counterSlice.reducer;
