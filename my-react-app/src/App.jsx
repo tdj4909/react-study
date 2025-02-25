@@ -1,26 +1,16 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchData } from "./CounterSlice";
+import { increment } from "./CounterSlice";
 
 function App(){
   const dispatch = useDispatch();
-  const { data, loading, error } = useSelector((state) => state.counter);
-
-  useEffect(() => {
-    dispatch(fetchData());
-  }, [dispatch]);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  const count = useSelector((state) => state.counter.value);
 
   return (
     <div>
-      <h1>Data from API</h1>
-      <ul>
-        {data.map((post) => (
-          <li key={post.id}>{post.title}</li>
-        ))}
-      </ul>
+      <h1>Redux Persist Counter</h1>
+      <p>현재 카운트: {count}</p>
+      <button onClick={() => dispatch(increment())}>+1 증가</button>
     </div>
   );
 }

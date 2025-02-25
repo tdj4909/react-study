@@ -1,14 +1,23 @@
 import {configureStore} from "@reduxjs/toolkit";
 import counterReducer from "./CounterSlice";
-import loggerMiddleware from "./LoggerMiddleware";
+import storage from "redux-persist/lib/storage";
+import { persistReducer, persistStore } from "redux-persist";
+import {thunk} from "redux-thunk";
+
+const persistConfig = {
+    key: "root",
+    storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, counterReducer);
 
 const store = configureStore({
     reducer: {
-        counter: counterReducer,
+        counter: persistedReducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(loggerMiddleware),
-    devTools: process.env.NODE_ENV !== "production",
+        getDefaultMiddleware({serializableCheck: false}).concat(thunk),
 });
 
+export const persistor = persistStore(store);
 export default store;
