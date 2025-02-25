@@ -1,39 +1,35 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const initialState = {
-    data: [],
-    loading: false,
-    error: null,
-};
+export const fetchData = createAsyncThunk("counter/fetchData", async () => {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const data = await response.json();
+    return data;
+});
+
 
 const counterSlice = createSlice({
     name: "counter",
-    initialState,
-    reducers: {
-        setLoading: (state) => {
-            state.loading = true;
-        },
-        setData: (state, action) => {
-            state.data = action.payload;
-            state.loading = false;
-        },
-        setError: (state, action) => {
-            state.error = action.payload;
-            state.loading = false;
-        },
+    initialState: {
+        data: [],
+        loading: false,
+        error: null,
+    },
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchData.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchData.fulfilled, (state, action) => {
+                state.loading = false;
+                state.data = action.payload;
+            })
+            .addCase(fetchData.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            });
     },
 });
 
-export const fetchData = () => async (dispatch) => {
-    dispatch(setLoading());
-    try {
-        const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-        const data = await response.json();
-        dispatch(setData(data));
-    } catch (error) {
-        dispatch(setError(error.message));
-    }
-};
-
-export const { setLoading, setData, setError} = counterSlice.actions;
 export default counterSlice.reducer;
