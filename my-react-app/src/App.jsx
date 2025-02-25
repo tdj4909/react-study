@@ -17,8 +17,8 @@ function App(){
     <div>
       <h1>Data from API</h1>
       <ul>
-        {data.map((item) => (
-          <li key={item.id}>{item.title}</li>
+        {data.map((post) => (
+          <li key={post.id}>{post.title}</li>
         ))}
       </ul>
     </div>
