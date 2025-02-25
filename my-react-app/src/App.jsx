@@ -1,11 +1,26 @@
-import React from "react";
-import Counter from "./Counter";
+import React, {useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchData } from "./CounterSlice";
 
 function App(){
+  const dispatch = useDispatch();
+  const { data, loading, error } = useSelector((state) => state.counter);
+
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <div>
-      <h1>Redux 카운터 예제</h1>
-      <Counter />
+      <h1>Data from API</h1>
+      <ul>
+        {data.map((item) => (
+          <li key={item.id}>{item.title}</li>
+        ))}
+      </ul>
     </div>
   );
 }

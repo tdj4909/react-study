@@ -24,7 +24,7 @@ const counterSlice = createSlice({
     },
 });
 
-export const fetchCounter = () => async (dispatch) => {
+export const fetchData = () => async (dispatch) => {
     dispatch(setLoading());
     try {
         const response = await fetch("https://jsonplaceholder.typicode.com/posts");
