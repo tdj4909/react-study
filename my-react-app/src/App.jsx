@@ -1,16 +1,11 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { increment } from "./CounterSlice";
+import PostList from "./PostList";
 
 function App(){
-  const dispatch = useDispatch();
-  const count = useSelector((state) => state.counter.value);
-
   return (
     <div>
-      <h1>Redux Persist Counter</h1>
-      <p>현재 카운트: {count}</p>
-      <button onClick={() => dispatch(increment())}>+1 증가</button>
+      <h1>React Query 데이터 페칭 예시</h1>
+      <PostList />
     </div>
   );
 }
