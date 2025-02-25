@@ -1,12 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {thunk} from "redux-thunk";
 import counterReducer from "./CounterSlice";
 
 const store = configureStore({
     reducer: {
         counter: counterReducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+    devTools: import.meta.env.MODE !== "production",
 });
 
 export default store;
