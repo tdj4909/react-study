@@ -1,11 +1,14 @@
-import React from "react";
-import PostList from "./PostList";
+import Profile from "./Profile";
+import Counter from "./Counter";
 
 function App(){
   return (
     <div>
-      <h1>React Query 데이터 페칭 예시</h1>
-      <PostList />
+      <Profile name="홍길동" age={25} />
+
+      <Counter />
+
+      <ButtonClick />
     </div>
   );
 }
