@@ -1,29 +1,26 @@
-import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 
 function PostList() {
-    const { data, isLoading, error } = useQuery({
-        queryKey: ["posts"],
-        queryFn: async () => {
-            const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-            if (!response.ok) throw new Error("Network response was not ok");
-            return response.json();
-        },
-    });
+    const [posts, setPosts] = useState([]);
 
-    console.log(data);
-    
-    if (isLoading) return <p>로딩 중...</p>;
-
-    if (error instanceof Error) return <p>오류 발생: {error.message}</p>;
-
-    
+    useEffect(() => {
+        fetch("https://jsonplaceholder.typicode.com/posts")
+        .then((response) => response.json())
+        .then((data) => setPosts(data.slice(0,5)));
+    }, []);
 
     return (
-        <ul>
-            {data.map((post) => (
-                <li key={post.id}>{post.title}</li>
-            ))}
-        </ul>
+        <div>
+            <h2>게시글 목록</h2>
+            <ul>
+                {posts.map((post) => (
+                    <li key={post.id}>
+                        <strong>{post.title}</strong>
+                        <p>{post.body}</p>
+                    </li>
+                ))}
+            </ul>
+        </div>
     );
 }
 

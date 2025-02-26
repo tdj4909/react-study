@@ -1,6 +1,7 @@
 import Profile from "./Profile";
 import Counter from "./Counter";
 import ButtonClick from "./ButtonClick";
+import PostList from "./PostList";
 
 function App(){
   return (
@@ -10,6 +11,8 @@ function App(){
       <Counter />
 
       <ButtonClick />
+
+      <PostList />
     </div>
   );
 }
