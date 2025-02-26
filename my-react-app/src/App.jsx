@@ -1,5 +1,6 @@
 import Profile from "./Profile";
 import Counter from "./Counter";
+import ButtonClick from "./ButtonClick";
 
 function App(){
   return (
