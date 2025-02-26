@@ -1,20 +1,12 @@
-import React, {useEffect} from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement, fetchCounter } from "./CounterSlice";
+import { useState } from "react";
 
 function Counter() {
-    const count = useSelector((state) => state.counter.value);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchCounter());
-    }, [dispatch]);
+    const [count, setCount] = useState(0);
 
     return (
         <div>
-            <h1>카운트: {count}</h1>
-            <button onClick={() => dispatch(increment())}>+1</button>
-            <button onClick={() => dispatch(decrement())}>-1</button>
+            <p>{`카운트: ${count}`}</p>
+            <button onClick={() => setCount(count + 1)}>+1 증가</button>
         </div>
     );
 }
