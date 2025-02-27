@@ -1,11 +1,11 @@
-import React, {useState, useCallback} from "react";
+import React, { useState, useCallback } from "react";
 
-const Button = React.memo(({onClick}) => {
+const Button = React.memo(({ onClick }) => {
   console.log("Button 컴포넌트 렌더링");
   return <button onClick={onClick}>+1 증가</button>;
 });
 
-function App(){
+function App() {
   const [count, setCount] = useState(0);
 
   const increment = useCallback(() => {
