@@ -1,25 +1,21 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { increment, decrement, fetchData } from "./CounterSlice";
+import React, {useState} from "react";
 
-function App() {
-  const count = useSelector((state) => state.counter.value);
-  const data = useSelector((state) => state.counter.data);
-  const status = useSelector((state) => state.counter.status);
-  const dispatch = useDispatch();
-  
+const ChildComponent = ({name}) => {
+  console.log("ChildComponent 렌더링");
+  return <p>안녕, {name}!</p>;
+};
+
+const MemoizedChild = React.memo(ChildComponent);
+
+function App(){
+  const [count, setCount] = useState(0);
 
   return (
     <div>
-      <h1>Counter: {count}</h1>
-      <button onClick={() => dispatch(increment())}>+1 증가</button>
-      <button onClick={() => dispatch(decrement())}>-1 감소</button>
+      <h1>카운트: {count}</h1>
+      <button onClick={() => setCount(count + 1)}>+1 증가</button>
 
-      <h2>비동기 API 데이터</h2>
-      <button onClick={() => dispatch(fetchData())}>데이터 가져오기</button>
-      {status === "loading" && <p>로딩 중...</p>}
-      {status === "succeeded" && <p>데이터: {JSON.stringify(data)}</p>}
-      {status === "failed" && <p>데이터 불러오기 실패</p>}
+      <MemoizedChild name="React" />
     </div>
   );
 }
