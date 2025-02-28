@@ -1,10 +1,15 @@
+import PropTypes from "prop-types";
 import React, { useState, useCallback } from "react";
 
-// eslint-disable-next-line react/display-name, react/prop-types
 const Button = React.memo(({ onClick }) => {
   console.log("Button 컴포넌트 렌더링");
   return <button onClick={onClick}>+1 증가</button>;
 });
+Button.displayName = "Button";
+
+Button.propTypes = {
+  onClick: PropTypes.func.isRequired, // onClick은 필수 함수형 prop
+};
 
 function App() {
   const [count, setCount] = useState(0);
